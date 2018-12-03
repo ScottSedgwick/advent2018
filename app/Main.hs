@@ -1,6 +1,7 @@
 module Main where
 
-import Lib
+import qualified Day3 as D3
+import qualified Day4 as D4
 
 main :: IO ()
 main = do
@@ -10,6 +11,6 @@ main = do
   -- print d2a1
   -- print d2a2
 
-  print d3a1
-  print d3a2
+  print D4.answer1
+  print D4.answer2
 

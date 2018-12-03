@@ -1,7 +1,7 @@
 module TestDay2 where
 
 import Test.Hspec
-import Lib
+import Day2
 
 mainDay2 :: IO()
 mainDay2 = hspec $ do

@@ -54,7 +54,6 @@ initCloth' = makeCloth 10 10
 d3a2 :: Maybe Int
 d3a2 = findOnly inches ids
 
--- foldr :: (a -> b -> b) -> b -> Map k a -> b
 inches :: [Int.IntSet]
 inches = M.foldr (:) [] d3d1
 
@@ -64,9 +63,7 @@ findOnly xs (y:ys) = if onlyOnes y xs then Just y else findOnly xs ys
 
 onlyOnes :: Int -> [Int.IntSet] -> Bool
 onlyOnes _ [] = True
-onlyOnes x (y:ys) = if (Int.size y > 1) && (x `Int.member` y)
-                    then False
-                    else onlyOnes x ys
+onlyOnes x (y:ys) = not ((Int.size y > 1) && (x `Int.member` y)) && onlyOnes x ys
 
 ids :: [Int]
 ids = foldr (\(x,_,_,_,_) xs -> x:xs) [] d3data
