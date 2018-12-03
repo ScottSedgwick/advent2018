@@ -21,12 +21,13 @@ description:         Please see the README on GitHub at <https://github.com/Scot
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
 
 library:
   source-dirs: src
 
 executables:
-  advent-exe:
+  a:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
