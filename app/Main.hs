@@ -7,6 +7,9 @@ import qualified Day4 as D4
 
 main :: IO ()
 main = do
-  print D4.answer1
-  print D4.answer2
+  putStrLn "Answer 1:"
+  D4.answer1
+
+  putStrLn "Answer 2:"
+  D4.answer2
 
