@@ -1,23 +1,20 @@
-module Day3 where
+module Day3 (answer1, answer2) where
 
-import qualified Data.Map.Strict as M
+import Data.List (find)
+import qualified Data.IntMap as M
 import qualified Data.IntSet as Int
+
+-- Functions used for both answers
 
 type Patch = (Int, Int, Int, Int, Int)
 
-overlap :: Patch -> Patch -> Int
-overlap (_, x1, y1, w1, h1) (_, x2, y2, w2, h2) = x_overlap * y_overlap
-  where
-    x_overlap = max 0 (min (x1 + w1) (x2 + w2) - max x1 x2)
-    y_overlap = max 0 (min (y1 + h1) (y2 + w2) - max y1 y2)
+type Cloth = M.IntMap Int.IntSet
 
-type Cloth = M.Map (Int,Int) Int.IntSet
+patchedCloth :: Cloth
+patchedCloth = foldr useCloth M.empty ds
 
-initCloth :: Cloth
-initCloth = makeCloth 1000 1000
-
-d3d1 :: Cloth
-d3d1 = foldr useCloth initCloth d3data
+coord :: Int -> Int -> Int
+coord x y = x * 1000 + y
 
 useCloth :: Patch -> Cloth -> Cloth
 useCloth (i, x, y, w, h) c = foldr useInch c xs
@@ -25,51 +22,36 @@ useCloth (i, x, y, w, h) c = foldr useInch c xs
     xs = [(i,a,b) | a <- [x..(x+w-1)], b <- [y..(y+h-1)]]
     
 useInch :: (Int,Int,Int) -> Cloth -> Cloth
-useInch (id,x,y) = M.adjust (\ids -> Int.insert id ids) (x,y) 
+useInch (id,x,y) = M.alter (add id) (coord x y)
+  where
+    add i Nothing    = Just (Int.singleton i)
+    add i (Just ids) = Just (Int.insert i ids) 
 
-d3a1 :: Int
-d3a1 = countDouble d3d1
+-- Functions used only for answer1
 
 countDouble :: Cloth -> Int
 countDouble = M.foldr f 0
   where
     f a b = b + if Int.size a > 1 then 1 else 0
 
-d3test :: [Patch]
-d3test = 
-  [ (1, 1, 3, 4, 4)
-  , (2, 3, 1, 4, 4)
-  , (3, 5, 5, 2, 2)
-  ]
+answer1 :: Int
+answer1 = countDouble patchedCloth
 
-d3dtest :: Cloth
-d3dtest = foldr useCloth initCloth' d3test
+-- Functions used only for answer2
 
-makeCloth :: Int -> Int -> Cloth
-makeCloth w h = M.fromList [((x,y), Int.empty) | x <- [0..w], y <- [0..h]]
+answer2 :: Maybe Int
+answer2 = find (\id -> not (id `Int.member` doubledInches)) ids
 
-initCloth' :: Cloth
-initCloth' = makeCloth 10 10
-
-d3a2 :: Maybe Int
-d3a2 = findOnly inches ids
-
-inches :: [Int.IntSet]
-inches = M.foldr (:) [] d3d1
-
-findOnly :: [Int.IntSet] -> [Int] -> Maybe Int
-findOnly _ [] = Nothing
-findOnly xs (y:ys) = if onlyOnes y xs then Just y else findOnly xs ys
-
-onlyOnes :: Int -> [Int.IntSet] -> Bool
-onlyOnes _ [] = True
-onlyOnes x (y:ys) = not ((Int.size y > 1) && (x `Int.member` y)) && onlyOnes x ys
+doubledInches :: Int.IntSet
+doubledInches = M.foldr (\uset iset -> if Int.size uset > 1 then Int.union uset iset else iset) Int.empty patchedCloth
 
 ids :: [Int]
-ids = foldr (\(x,_,_,_,_) xs -> x:xs) [] d3data
+ids = foldr (\(x,_,_,_,_) xs -> x:xs) [] ds
 
-d3data :: [Patch]
-d3data = 
+-- Data set for day 3
+
+ds :: [Patch]
+ds = 
   [ (1, 483,830, 24, 18)
   , (2, 370,498, 21, 17)
   , (3, 403,823, 25, 21)

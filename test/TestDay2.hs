@@ -3,8 +3,8 @@ module TestDay2 where
 import Test.Hspec
 import Day2
 
-mainDay2 :: IO()
-mainDay2 = hspec $ do
+main :: IO()
+main = hspec $ do
   describe "testLen" $ do
     it "finds 2 character examples" $ do
       testLen 2 "abcdef" `shouldBe` False

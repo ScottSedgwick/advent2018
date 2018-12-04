@@ -1,12 +1,12 @@
-module Day2 where
+module Day2 (answer1, answer2, difference, testLen) where
 
 import Data.List
 
 testLen :: Int -> String -> Bool
 testLen n xs = any (\x -> length x == n) $ group $ sort xs
 
-d2a1 :: Int
-d2a1 = twos * threes
+answer1 :: Int
+answer1 = twos * threes
   where
     twos = length $ filter (testLen 2) ds
     threes = length $ filter (testLen 3) ds
@@ -14,8 +14,8 @@ d2a1 = twos * threes
 d2a21 :: [([Char], [Char])]
 d2a21 = filter (\(x,y) -> difference x y == 1) $ allpairs ds
 
-d2a2 :: String
-d2a2 = sameParts $ head d2a21
+answer2 :: String
+answer2 = sameParts $ head d2a21
 
 sameParts :: (String, String) -> String
 sameParts ([],_) = []
