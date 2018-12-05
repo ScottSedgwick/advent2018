@@ -1,8 +1,6 @@
 import qualified TestDay2 as D2
-import qualified TestDay3 as D3
-import qualified TestDay4 as D4
-import qualified TestDay5 as D5
+import qualified TestDay6 as D6
 
 main :: IO ()
 main = do
-  D5.main
+  D6.main

@@ -3,7 +3,7 @@ module Day4 where
 import Data.List (sortOn)
 import qualified Data.IntSet as I
 import qualified Data.IntMap as M
-import Data.DateTime
+import Data.DateTime (DateTime, fromGregorian, toGregorian)
 import Utils
 
 answer1 :: IO()

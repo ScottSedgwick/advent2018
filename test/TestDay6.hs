@@ -1,10 +1,10 @@
-module TestDay5 where
+module TestDay6 where
 
   import Test.Hspec
-  import Day5
+  import Day6
   
   main :: IO ()
   main = hspec $ do
-    describe "day5" $ do
+    describe "day6" $ do
       it "should test" $ do
-        5 `shouldBe` 5
+        0 `shouldBe` 0
