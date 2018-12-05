@@ -4,6 +4,7 @@ import Data.List (sortOn)
 import qualified Data.IntSet as I
 import qualified Data.IntMap as M
 import Data.DateTime
+import Utils
 
 answer1 :: IO()
 answer1 = do
@@ -14,13 +15,6 @@ answer1 = do
 zeroDate :: DateTime
 zeroDate = fromGregorian 0 0 0 0 0 0
 
-most :: Int -> Integer -> [(Int, Integer)] -> (Int, Integer)
-most maxkey maxval [] = (maxkey, maxval)
-most maxkey maxval ((key,val):xs) = 
-  if val > maxval 
-    then most key val xs
-    else most maxkey maxval xs
-
 answer2 :: IO()
 answer2 = do
   let (k, (m,_)) = sleeperMax
@@ -28,24 +22,18 @@ answer2 = do
   print $ k * m
 
 sleeperMax :: (Int, (Int, Integer))
-sleeperMax = head $ reverse $ sortOn (snd . snd) sleeperMaxes
+sleeperMax = ismax (snd . snd) sleeperMaxes
 
-sleeperMaxes :: [(Int, (Int, Integer))]
-sleeperMaxes = M.toList $ M.map sleepiestMin sleepMap
+sleeperMaxes :: M.IntMap (Int, Integer)
+sleeperMaxes = M.map sleepiestMin sleepMap
             
 sleepiestMin :: M.IntMap Integer -> (Int, Integer)
-sleepiestMin = head . reverse . sortOn snd . M.toList
+sleepiestMin = ismax snd
 
 type SleepTotals = M.IntMap Integer
 
-sleepTotals :: [(Int, Integer)]
-sleepTotals = reverse $ sortOn snd $ M.toList $ M.map sleepSum sleepMap
-
-sleepSum :: M.IntMap Integer -> Integer
-sleepSum = M.foldr (+) 0 
-
 sleepiest :: Int
-sleepiest = fst $ head sleepTotals
+sleepiest = fst $ ismax snd $ M.map (M.foldr (+) 0) sleepMap
 
 sleepiestTimes :: M.IntMap Integer
 sleepiestTimes = case M.lookup sleepiest sleepMap of
@@ -53,7 +41,7 @@ sleepiestTimes = case M.lookup sleepiest sleepMap of
                    (Just m) -> m
 
 sleepiestTime :: Int
-sleepiestTime = fst $ head $ reverse $ sortOn snd $ M.toList sleepiestTimes
+sleepiestTime = fst $ ismax snd sleepiestTimes
 
 type SleepMap = M.IntMap (M.IntMap Integer)
 
