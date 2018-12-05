@@ -9,8 +9,8 @@ import qualified Day5 as D5
 main :: IO ()
 main = do
   putStrLn "Answer 1:"
-  D4.answer1
+  D5.answer1
 
   putStrLn "\nAnswer 2:"
-  D4.answer2
+  D5.answer2
 

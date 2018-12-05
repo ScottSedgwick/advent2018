@@ -22,18 +22,18 @@ answer2 = do
   print $ k * m
 
 sleeperMax :: (Int, (Int, Integer))
-sleeperMax = ismax (snd . snd) sleeperMaxes
+sleeperMax = immax (snd . snd) sleeperMaxes
 
 sleeperMaxes :: M.IntMap (Int, Integer)
 sleeperMaxes = M.map sleepiestMin sleepMap
             
 sleepiestMin :: M.IntMap Integer -> (Int, Integer)
-sleepiestMin = ismax snd
+sleepiestMin = immax snd
 
 type SleepTotals = M.IntMap Integer
 
 sleepiest :: Int
-sleepiest = fst $ ismax snd $ M.map (M.foldr (+) 0) sleepMap
+sleepiest = fst $ immax snd $ M.map (M.foldr (+) 0) sleepMap
 
 sleepiestTimes :: M.IntMap Integer
 sleepiestTimes = case M.lookup sleepiest sleepMap of
@@ -41,7 +41,7 @@ sleepiestTimes = case M.lookup sleepiest sleepMap of
                    (Just m) -> m
 
 sleepiestTime :: Int
-sleepiestTime = fst $ ismax snd sleepiestTimes
+sleepiestTime = fst $ immax snd sleepiestTimes
 
 type SleepMap = M.IntMap (M.IntMap Integer)
 
