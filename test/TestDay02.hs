@@ -1,7 +1,7 @@
-module TestDay2 where
+module TestDay02 where
 
 import Test.Hspec
-import Day2
+import Day02
 
 main :: IO()
 main = hspec $ do

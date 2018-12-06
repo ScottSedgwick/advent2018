@@ -1,4 +1,4 @@
-module Day2 (answer1, answer2, difference, testLen) where
+module Day02 (answer1, answer2, difference, testLen) where
 
 import Data.List
 

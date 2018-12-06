@@ -1,4 +1,4 @@
-module Day1 (answer1, answer2) where
+module Day01 (answer1, answer2) where
 
 import Data.List (cycle)
 import Data.IntSet (IntSet, singleton, member, insert)

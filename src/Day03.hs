@@ -1,4 +1,4 @@
-module Day3 (answer1, answer2) where
+module Day03 (answer1, answer2) where
 
 import Data.List (find)
 import qualified Data.IntMap as M
