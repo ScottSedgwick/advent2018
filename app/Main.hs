@@ -7,12 +7,12 @@ import qualified Day04 as D4
 import qualified Day05 as D5
 import qualified Day06 as D6
 import qualified Day07 as D7
+import qualified Day08 as D8
+import qualified Day09 as D9
+import qualified Day10 as D10
+import qualified Day11 as D11
+import qualified Day12 as D12
 
 main :: IO ()
-main = do
-  putStrLn "Answer 1:"
-  D7.answer1
-
-  putStrLn "\nAnswer 2:"
-  D7.answer2
+main = D9.answer
 
