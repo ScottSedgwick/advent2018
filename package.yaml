@@ -24,10 +24,12 @@ dependencies:
 - binary-literal-qq
 - containers
 - datetime
+- digits
 - lens
 - mtl
 - pointedlist
 - split
+- vector
 
 library:
   source-dirs: src
