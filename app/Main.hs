@@ -12,7 +12,8 @@ import qualified Day09 as D9
 import qualified Day10 as D10
 import qualified Day11 as D11
 import qualified Day12 as D12
+import qualified Day14 as D14
 
 main :: IO ()
-main = D9.answer
+main = D12.answer
 
